@@ -34,10 +34,50 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
-        int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
+    	int result = 0;
+    	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
+    	 	
+    	do {
+    		
+    	try {	       	   	
         // TODO: complete this...
+        if(tokens[0].equals("negate")) {
+        	result = -a;
+        }
+    	
+        else if(tokens[0].equals("halve")) {
+        	result = a/2;
+        }
     }
+ 
+    	catch(NumberFormatException nfe) {
+    		System.out.println("Please try using a number in your input!");
+    	}
+    	try {
+    		if(tokens[0].equals("negate") || tokens[0].equals("halve")) {
+    		tokens[0] = tokens[0];	
+    		
+    	}
+    		
+    	
+    		throw new CalculatorException("Illegal command");
+    	}
+    	catch(CalculatorException ce ) {
+    		System.out.println("Try using a proper command");
+    	}
+    	
 
+    	
+  
+    	
+    	}while(tokens != null);
+		
+    	return result;
+    	}
+    
+    	
+    
+    
     /**
      * Takes an input command of three string tokens and performs the appropriate calculator command.
      * The token length should never be something other than 3. If it is, there is an issue in execute().
@@ -70,6 +110,14 @@ public class Calculator
             throws ArithmeticException, NumberFormatException, CalculatorException
     {
         // TODO: complete this...
+    	
+    	int result = 0;
+    	if(tokens[0].equals("negate")) {
+        	result = -a;
+        }
+        else if(tokens[0].equals("halve")) {
+        	result = a/2;
+        }
     }
 
     /**
