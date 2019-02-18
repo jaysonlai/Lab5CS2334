@@ -35,6 +35,7 @@ public class Calculator
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
     	int result = 0;
+    	String command = "";
     	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
     	 	
     	do {
@@ -55,7 +56,7 @@ public class Calculator
     	}
     	try {
     		if(tokens[0].equals("negate") || tokens[0].equals("halve")) {
-    		tokens[0] = tokens[0];	
+    		command = tokens[0];	
     		
     	}
     		
@@ -111,13 +112,47 @@ public class Calculator
     {
         // TODO: complete this...
     	
-    	int result = 0;
-    	if(tokens[0].equals("negate")) {
-        	result = -a;
-        }
-        else if(tokens[0].equals("halve")) {
-        	result = a/2;
-        }
+    	int result=0;
+    	int num1 = Integer.parseInt(tokens[0]);
+    	String command = tokens[1];
+    	int num2 = Integer.parseInt(tokens[2]);
+    	
+    	do {
+    		try {
+    			if(command =="+") {
+    				result = num1+num2;
+    			}
+    			if(command =="-") {
+    				result = num1-num2;
+    			}
+    			if(command =="/") {
+    				result = num1/num2;
+    			}
+    		}
+    	catch(NumberFormatException nfe) {
+    		System.out.println("Either input is not a number");
+    	}
+    	
+    		try {
+    			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/")) {
+    				command = tokens[1];
+    			}
+    			throw new CalculatorException("Illegal Command");
+    		}
+    		catch(CalculatorException m) {
+    				System.out.println("Second input was not + or - or /.\n Please try again.");
+    			}
+    		
+    		try {
+    			if(tokens[2].equals(0) && tokens[1].equals("/") ) {
+    				result=num1/num2;
+    			}
+    		}
+    		catch(ArithmeticException n) {
+    			System.out.println("A division with zero was made");
+    		}
+    	}while(tokens != null);
+    	return result;
     }
 
     /**
