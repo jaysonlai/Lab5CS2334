@@ -70,10 +70,9 @@ public class CalculatorTest {
         // TODO: complete this test...
     	try
         {
-            Calculator.calculateTwoTokens(new String[] {"halv", "5"});
-            Assert.fail("Illegal expression did not throw an Exception");
+            Calculator.calculateTwoTokens(new String[] {"halv", "6"});
         }
-        catch (NumberFormatException e)
+        catch (CalculatorException e)
         {
             // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
             // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
@@ -183,7 +182,6 @@ public class CalculatorTest {
     	 try
          {
              Calculator.calculateThreeTokens(new String[] {"7", "*", "5"});
-             Assert.fail("Illegal expression did not throw an Exception");
          }
          catch (CalculatorException e)
          {
@@ -204,8 +202,8 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
     	try {
-    		Calculator.execute(new String[] {"1", "+", "8"});
-            Assert.fail("Illegal expression did not throw an Exception");
+    		int result = Calculator.execute(new String[] {"quit"});
+            Assert.assertEquals(Integer.MIN_VALUE, result);
     	}
     	catch (Exception e)
     	{
@@ -273,21 +271,30 @@ public class CalculatorTest {
      */
     public void executeTestInvalidTokenLength() throws AssertException
     {
-        // Token length is 0:
+    	 // Token length is 0:
         // TODO: complete this test...
-    	try {
-    		String result = Calculator.parseAndExecute("");
-            Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);    		
-    	}
-    	
-
+        try
+        {
+            int result = Calculator.execute(new String[] {});
+            Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+        }
+        catch (CalculatorException e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+        }
         // Token length is > 3:
         // TODO: complete this test...
-    	
-try {
-		String result = Calculator.parseAndExecute("6 6 + 6");
-        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+    	try 
+    	{
+        	int result = Calculator.execute(new String[] {"1", "+", "2", "+", "4"});
+    		Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+    	}
+    	catch (CalculatorException e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+        }
     }
+
 
     /**
      * Test correct parseAndExecution of command (input of "quit"):

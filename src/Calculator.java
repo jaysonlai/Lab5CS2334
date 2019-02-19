@@ -34,53 +34,41 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
-    	int result = 0;
-    	String command = "";
+    	String command = tokens[0];
     	
     	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
     	 	
-    	do {
-    		
+    	
     	try {	       	   	
         // TODO: complete this...
-        if(tokens[0].equals("negate")) {
-        	result = -a;
+        if(command == ("halve") || tokens[0].equals("negate")) {
+        	command = tokens[0];
         }
     	
-        else if(tokens[0].equals("halve")) {
-        	result = a/2;
+        else {
+        	throw new CalculatorException("Illegal Command");
         }
     }
  
-    	catch(NumberFormatException nfe) {
-    		System.out.println("Please try using a number in your input!");
+    	catch(CalculatorException e) {
+    		System.out.println("First input was not halved or negated");
     	}
-    	
-    	
-    	
     	
     	try {
-    		if(tokens[0].equals("negate") || tokens[0].equals("halve")) {
-    			command = "Illegal command";
+    		if(command == "negate") {
+    			a= -a;
     		}
-    		
-    		else {
-			throw new CalculatorException("Illegal command");    		
+    		if(command ==" halve") {
+    			a=a/2;
     		}
-    		
-    	
     	}
-    	catch(CalculatorException e) {
-    		System.out.println("Try using a proper command");
-    	}
-    	
-
-    	
+    	catch(NumberFormatException e) {
+    		System.out.println("Second input is not a valid number.\n Try again");
   
     	
-    	}while(tokens != null);
-		
-    	return result;
+    	}
+    	return a;
+    	
     	}
     
     	
@@ -124,7 +112,29 @@ public class Calculator
     	String command = tokens[1];
     	int num2 = Integer.parseInt(tokens[2]);
     	
-    	do {
+    	try {
+			if(tokens[2].equals(0) && tokens[1].equals("/") ) {
+				throw new ArithmeticException("");
+			}
+		}
+		catch(ArithmeticException n) {
+			System.out.println("A division with zero was made");
+		}
+    	
+    	try {
+			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/")) {
+				command = tokens[1];
+			}
+			else {
+			
+			
+			throw new CalculatorException("Illegal Command");
+			}
+			}
+		catch(CalculatorException m) {
+				System.out.println("Second input was not + or - or /.\n Please try again.");
+			}
+    	
     		try {
     			if(command =="+") {
     				result = num1+num2;
@@ -140,29 +150,10 @@ public class Calculator
     		System.out.println("Either input is not a number");
     	}
     	
-    		try {
-    			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/")) {
-    				command = tokens[1];
-    			}
-    			else {
-    			
-    			
-    			throw new CalculatorException("Illegal Command");
-    			}
-    			}
-    		catch(CalculatorException m) {
-    				System.out.println("Second input was not + or - or /.\n Please try again.");
-    			}
     		
-    		try {
-    			if(tokens[2].equals(0) && tokens[1].equals("/") ) {
-    				result=num1/num2;
-    			}
-    		}
-    		catch(ArithmeticException n) {
-    			System.out.println("A division with zero was made");
-    		}
-    	}while(tokens != null);
+    		
+    		
+    	
     	return result;
     }
 
@@ -202,7 +193,7 @@ public class Calculator
         {
             // TODO: complete this...
     	case 1: {
-    		throw new CalculatorException("Illegal command");
+    		throw new CalculatorException("Illegal Command");
     	}
     	case 2: {
     		if(tokens[0].equalsIgnoreCase("quit")) {
@@ -221,7 +212,7 @@ public class Calculator
     		
     	}
     	case 5: {
-    		throw new CalculatorException("Illegal Command");
+    		throw new CalculatorException("Illegal Token Length");
     		
     	}
     	
@@ -283,7 +274,7 @@ public class Calculator
     		return result;	
     	}
     		catch(NumberFormatException | CalculatorException e) {
-    			return result = "Java suck a lot";
+    			return result = "Calculator Exception, message is: Illegal Command";
     		}
     	}
     	case 3: {
@@ -291,7 +282,7 @@ public class Calculator
     			Calculator.execute(splitHere);
     		}
     		catch (ArithmeticException  | CalculatorException e){
-    			return result = "You divided by a zero you chungus";
+    			return result = "Calculator Exception, message is: Illegal Command";
     		}
     	}
     	
@@ -300,7 +291,7 @@ public class Calculator
     			Calculator.execute(splitHere);
     		}
     		catch (NumberFormatException | CalculatorException e){
-    			return result = "You put in an improper Chungus";
+    			return result = "Calculator Exception, message is: Illegal Command";
     		}
     	}
     	
@@ -309,7 +300,7 @@ public class Calculator
     		Calculator.execute(splitHere);
     	}
     		catch (CalculatorException e) {
-    			return result = "You chungus";
+    			return result = "Calculator Exception, message is: Illegal Command";
     		}
     	
     						
