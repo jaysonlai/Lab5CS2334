@@ -36,6 +36,7 @@ public class Calculator
     {
     	int result = 0;
     	String command = "";
+    	
     	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
     	 	
     	do {
@@ -54,16 +55,21 @@ public class Calculator
     	catch(NumberFormatException nfe) {
     		System.out.println("Please try using a number in your input!");
     	}
+    	
+    	
+    	
+    	
     	try {
     		if(tokens[0].equals("negate") || tokens[0].equals("halve")) {
-    		command = tokens[0];	
-    		
-    	}
+    			command = "Illegal command";
+    		}
+    		else {
+			throw new CalculatorException("Illegal command");    		
+    		}
     		
     	
-    		throw new CalculatorException("Illegal command");
     	}
-    	catch(CalculatorException ce ) {
+    	catch(CalculatorException e) {
     		System.out.println("Try using a proper command");
     	}
     	
@@ -137,8 +143,12 @@ public class Calculator
     			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/")) {
     				command = tokens[1];
     			}
+    			else {
+    			
+    			
     			throw new CalculatorException("Illegal Command");
-    		}
+    			}
+    			}
     		catch(CalculatorException m) {
     				System.out.println("Second input was not + or - or /.\n Please try again.");
     			}
