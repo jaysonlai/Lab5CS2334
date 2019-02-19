@@ -68,6 +68,21 @@ public class CalculatorTest {
     public void calculateTwoTokensTestInvalidCommand() throws AssertException
     {
         // TODO: complete this test...
+    	try
+        {
+            Calculator.calculateTwoTokens(new String[] {"halv", "5"});
+            Assert.fail("Illegal expression did not throw an Exception");
+        }
+        catch (NumberFormatException e)
+        {
+            // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
+            // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Unexpected Exception (not NumberFormatException) caught");
+        }
+    	
     }
 
     /**
@@ -76,6 +91,15 @@ public class CalculatorTest {
     public void calculateThreeTokensTestValidAdd() throws AssertException
     {
         // TODO: complete this test...
+    	try
+        {
+            int result = Calculator.calculateThreeTokens(new String[] {"7", "+", "8"});
+            Assert.assertEquals(15, result);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+        }
     }
 
     /**
@@ -84,6 +108,15 @@ public class CalculatorTest {
     public void calculateThreeTokensTestValidSubtract() throws AssertException
     {
         // TODO: complete this test...
+    	try
+        {
+            int result = Calculator.calculateThreeTokens(new String[] {"8", "-", "8"});
+            Assert.assertEquals(0, result);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+        }
     }
 
     /**
@@ -92,6 +125,15 @@ public class CalculatorTest {
     public void calculateThreeTokensTestValidDivide() throws AssertException
     {
         // TODO: complete this test...
+    	try
+        {
+            int result = Calculator.calculateThreeTokens(new String[] {"8", "/", "8"});
+            Assert.assertEquals(1, result);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+        }
     }
 
     /**
@@ -138,6 +180,21 @@ public class CalculatorTest {
     public void calculateThreeTokensTestInvalidCommand() throws AssertException
     {
         // TODO: complete this test...
+    	 try
+         {
+             Calculator.calculateThreeTokens(new String[] {"7", "*", "5"});
+             Assert.fail("Illegal expression did not throw an Exception");
+         }
+         catch (CalculatorException e)
+         {
+             // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
+             // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
+         }
+         catch (Exception e)
+         {
+             Assert.fail("Unexpected Exception (not CalculatorException) caught");
+         }
+
     }
 
     /**
@@ -146,6 +203,14 @@ public class CalculatorTest {
     public void executeTestValidQuit() throws AssertException
     {
         // TODO: complete this test...
+    	try {
+    		Calculator.execute(new String[] {"1", "+", "8"});
+            Assert.fail("Illegal expression did not throw an Exception");
+    	}
+    	catch (Exception e)
+    	{
+    		Assert.fail("Legal expression threw an Exception: " + e.getMessage());    	}
+    	
     }
 
     /**
@@ -170,6 +235,15 @@ public class CalculatorTest {
     public void executeTestValidThreeTokens() throws AssertException
     {
         // TODO: complete this test...
+    	try {
+    		
+    	
+    	int result = Calculator.calculateThreeTokens(new String[] {"5", "/", "1"} );
+    	Assert.assertEquals(5,result);
+    	}
+    	catch (Exception e) {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+    	}
     }
 
     /**
@@ -201,9 +275,18 @@ public class CalculatorTest {
     {
         // Token length is 0:
         // TODO: complete this test...
+    	try {
+    		String result = Calculator.parseAndExecute("");
+            Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);    		
+    	}
+    	
 
         // Token length is > 3:
         // TODO: complete this test...
+    	
+try {
+		String result = Calculator.parseAndExecute("6 6 + 6");
+        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
     }
 
     /**
@@ -230,6 +313,8 @@ public class CalculatorTest {
     public void parseAndExecuteTestDivideByZero() throws AssertException
     {
         // TODO: complete this test...
+    	String result = Calculator.parseAndExecute("6 / 0");
+        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
     }
 
     /**
@@ -238,6 +323,8 @@ public class CalculatorTest {
     public void parseAndExecuteTestInvalidNumber() throws AssertException
     {
         // TODO: complete this test...
+    	String result = Calculator.parseAndExecute("fo + 6");
+        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
     }
 
     /**
@@ -255,5 +342,7 @@ public class CalculatorTest {
     public void parseAndExecuteTestInvalidTokenLength() throws AssertException
     {
         // TODO: complete this test...
+    	String result = Calculator.parseAndExecute("6 + 6 + 6");
+        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
     }
 }

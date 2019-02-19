@@ -63,6 +63,7 @@ public class Calculator
     		if(tokens[0].equals("negate") || tokens[0].equals("halve")) {
     			command = "Illegal command";
     		}
+    		
     		else {
 			throw new CalculatorException("Illegal command");    		
     		}
@@ -262,5 +263,59 @@ public class Calculator
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
+    	String result = "";
+    	int answer =0;
+    	String[] splitHere = input.split(" ");
+    switch(splitHere.length) {
+    		
+    	case 1: {   
+    	if(input.equals("quit")) {
+    		return result = "quit";
     }
+    }
+    	case 2: {  	
+    		try {							
+    			answer = Calculator.execute(splitHere);
+    			if(answer > 0 || answer <= 0 ) {
+    		result = String.format("The result is %d", answer);
+    		}
+    		
+    		return result;	
+    	}
+    		catch(NumberFormatException | CalculatorException e) {
+    			return result = "Java suck a lot";
+    		}
+    	}
+    	case 3: {
+    		try {
+    			Calculator.execute(splitHere);
+    		}
+    		catch (ArithmeticException  | CalculatorException e){
+    			return result = "You divided by a zero you chungus";
+    		}
+    	}
+    	
+    	case 4: {
+    		try {
+    			Calculator.execute(splitHere);
+    		}
+    		catch (NumberFormatException | CalculatorException e){
+    			return result = "You put in an improper Chungus";
+    		}
+    	}
+    	
+    	case 5: {
+    		try {
+    		Calculator.execute(splitHere);
+    	}
+    		catch (CalculatorException e) {
+    			return result = "You chungus";
+    		}
+    	
+    						
+
+}
+}
+	return result;
+}
 }
