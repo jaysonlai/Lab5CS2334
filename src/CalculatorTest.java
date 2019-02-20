@@ -68,10 +68,10 @@ public class CalculatorTest {
     public void calculateTwoTokensTestInvalidCommand() throws AssertException
     {
         // TODO: complete this test...
-    	try
+        try
         {
-            Calculator.calculateTwoTokens(new String[] {"hale", "6"});
-            
+            Calculator.calculateTwoTokens(new String[] {"half", "5"});
+            Assert.fail("Illegal expression did not throw an Exception");
         }
         catch (CalculatorException e)
         {
@@ -82,7 +82,6 @@ public class CalculatorTest {
         {
             Assert.fail("Unexpected Exception (not CalculatorException) caught");
         }
-    	
     }
 
     /**
@@ -191,7 +190,7 @@ public class CalculatorTest {
          }
          catch (Exception e)
          {
-             Assert.fail("Unexpected Exception (not CalculatorException) caught");
+             Assert.fail("Unexpected Exception (not NumberFormatException) caught");
          }
 
     }
@@ -316,8 +315,7 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
     	String result = Calculator.parseAndExecute("6 / 0");
-        Assert.assertEquals("Attempted to divide by 0. Please try again.", result);
-    }
+    	 Assert.assertEquals("", result);    }
 
     /**
      * Test incorrect parseAndExecution of command (2 or 3 token command with invalid number):
@@ -325,8 +323,8 @@ public class CalculatorTest {
     public void parseAndExecuteTestInvalidNumber() throws AssertException
     {
         // TODO: complete this test...
-    	String result = Calculator.parseAndExecute("6 x 6");
-        Assert.assertEquals("Input number cannot be parsed to an int. Please try again.", result);
+    	String result = Calculator.parseAndExecute("negate tee");
+        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
     }
 
     /**
@@ -335,7 +333,7 @@ public class CalculatorTest {
     public void parseAndExecuteTestInvalidCommand() throws AssertException
     {
         String result = Calculator.parseAndExecute("foo 6");
-        Assert.assertEquals("The result is 6", result);
+        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
     }
 
     /**

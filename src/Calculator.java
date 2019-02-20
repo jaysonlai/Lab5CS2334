@@ -51,7 +51,7 @@ public class Calculator
     }
  
     	catch(CalculatorException e) {
-    		System.out.println("First input was not halved or negated");
+    		throw new CalculatorException("Illegal Command");
     	}
     	
     	try {
@@ -62,10 +62,8 @@ public class Calculator
     			a= a/2;
     		}
     	}
-    	catch(NumberFormatException e) {
-    		System.out.println("Second input is not a valid number.\nTry again");
-  
-    	
+    	catch(NumberFormatException nfe) {
+			throw new NumberFormatException("");
     	}
     	return a;
     	
@@ -114,7 +112,7 @@ public class Calculator
     	
     	try {
 			if(tokens[2].equals("0") && tokens[1].equals("/") ) {
-				throw new ArithmeticException("");
+				throw new ArithmeticException();
 			}
 		}
 		catch(ArithmeticException n) {
@@ -132,7 +130,7 @@ public class Calculator
 			}
 			}
 		catch(CalculatorException m) {
-				System.out.println("Second input was not + or - or /.\n Please try again.");
+			throw new CalculatorException("Illegal Command");
 			}
     	
     		try {
@@ -278,8 +276,11 @@ public class Calculator
     		}
     		
     				
-    		if(result != "quit")
+    		if(result != "Integer.MIN_VALUE")
     		{
+    			result = String.format("Calculator Exception, message is: Illegal Command");
+    		}
+    		else {
     			result = String.format("The result is %d", answer);
     		}
     		break;
@@ -290,7 +291,9 @@ public class Calculator
     			Calculator.execute(splitHere);
     		}
     		catch (CalculatorException | ArithmeticException e){
-    			result = "Attempted to divide by 0. Please try again.";
+    			result = "Input number cannot be parsed to an int. Please try again.";
+
+    			throw new ArithmeticException("You divided by zero. Please try again.");
     		}
     		break;
     	}
@@ -300,7 +303,7 @@ public class Calculator
     			Calculator.execute(splitHere);
     		}
     		catch (CalculatorException  | NumberFormatException e){
-    			result = "Input number cannot be parsed to an int. Please try again.";
+    			result = String.format("Calculator Exception, message is: Illegal Token Length");
     		}
     		break;
     	}
@@ -312,6 +315,7 @@ public class Calculator
     		catch (CalculatorException e) {
     			result = String.format("Calculator Exception, message is: %s", e.getMessage());
     		}
+    		break;
     	
     						
 
